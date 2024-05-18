@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/nisa.nn/Desktop/untitled folder 2/test/test/test.csproj": {}
+    "/Users/nisa.nn/Desktop/tasks/admin_blog/test/test.csproj": {}
   },
   "projects": {
-    "/Users/nisa.nn/Desktop/untitled folder 2/test/test/test.csproj": {
+    "/Users/nisa.nn/Desktop/tasks/admin_blog/test/test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/nisa.nn/Desktop/untitled folder 2/test/test/test.csproj",
+        "projectUniqueName": "/Users/nisa.nn/Desktop/tasks/admin_blog/test/test.csproj",
         "projectName": "test",
-        "projectPath": "/Users/nisa.nn/Desktop/untitled folder 2/test/test/test.csproj",
+        "projectPath": "/Users/nisa.nn/Desktop/tasks/admin_blog/test/test.csproj",
         "packagesPath": "/Users/nisa.nn/.nuget/packages/",
-        "outputPath": "/Users/nisa.nn/Desktop/untitled folder 2/test/test/obj/",
+        "outputPath": "/Users/nisa.nn/Desktop/tasks/admin_blog/test/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/nisa.nn/.nuget/NuGet/NuGet.Config"

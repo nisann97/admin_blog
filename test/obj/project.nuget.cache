@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "EUPulaDxZvrkjN/N/ItEXq1fENtDTZPGAlWT17H3qQUJpX1gm2Ii8LP2+V/IWMVKLeTexHdPcUFVH8Vvqe7C2Q==",
+  "dgSpecHash": "DybYUiI9xSX0JDwO4A3EMLb9zItMxTJWCCs+cEgroAzsCCdKQHO4LkFHI/nGggur4kTipMUHduRY9/b86/eL5g==",
   "success": true,
-  "projectFilePath": "/Users/nisa.nn/Desktop/untitled folder 2/test/test/test.csproj",
+  "projectFilePath": "/Users/nisa.nn/Desktop/tasks/admin_blog/test/test.csproj",
   "expectedPackageFiles": [
     "/Users/nisa.nn/.nuget/packages/humanizer/2.14.1/humanizer.2.14.1.nupkg.sha512",
     "/Users/nisa.nn/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",

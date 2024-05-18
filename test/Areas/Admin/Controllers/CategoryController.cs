@@ -1,155 +1,123 @@
-﻿using System;
-using System.Collections.Generic;
-using test.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using test.Models;
-using Microsoft.AspNetCore.Mvc;
-using test.ViewModels.Categories;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using test.Data;
+using test.Models;
+using test.ViewModels.Categories;
 
 namespace test.Areas.Admin.Controllers
 {
-
     [Area("Admin")]
     public class CategoryController : Controller
     {
 
-        private readonly AppDbContext _context;
-
-        public CategoryController(AppDbContext context)
+        private readonly AppDbContext _appDbContext;
+        public CategoryController(AppDbContext appDbContext)
         {
-            _context = context;
+            _appDbContext = appDbContext;
         }
-
-
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            List<Category> categories = await _appDbContext.Categories.OrderByDescending(m => m.Id).ToListAsync();
+            List<CategoryVM> model = categories.Select(m => new CategoryVM { Id = m.Id, Name = m.Name }).ToList();
 
-            List<Category> categories = await _context.Categories.OrderByDescending(m => m.Id).ToListAsync();
-            List<CategoryVM> model = categories.Select(m => new CategoryVM { Id = m.Id, Name = m.Name}).ToList(); 
             return View(model);
-        }
 
+        }
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
 
             return View();
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> Create(CategoryCreateVM category)
         {
-
             if (!ModelState.IsValid)
             {
                 return View();
-            }
 
-            bool existCategory = await _context.Categories.AnyAsync(m => m.Name == category.Name);
+            }
+            bool existCategory = await _appDbContext.Categories.AnyAsync(m => m.Name.Trim() == category.Name.Trim());
             if (existCategory)
             {
-                ModelState.AddModelError("Name", "This category already exists");
+                ModelState.AddModelError("Name", "Category already exist");
                 return View();
             }
-            await _context.Categories.AddAsync(new Category { Name = category.Name});
-            await _context.SaveChangesAsync();
+            await _appDbContext.Categories.AddAsync(new Category { Name = category.Name });
+            await _appDbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Detail(int? id)
         {
-            if (id is null) return BadRequest();
+            if (id == null) return BadRequest();
 
+            Category category = await _appDbContext.Categories.Where(m => m.Id == id).Include(m => m.Products).FirstOrDefaultAsync();
 
-            Category category = await _context.Categories.Where(m => m.Id == id)
-                                                          .Include(m => m.Products)
-                                                          .FirstOrDefaultAsync();
-
-            if (category is null) return NotFound();
+            if (category == null) return NotFound();
 
             CategoryDetailVM model = new()
             {
                 Name = category.Name,
-                ProductCount = category.Products.Count()
-
+                Count = category.Products.Count()
             };
-
             return View(model);
         }
+
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id is null) return BadRequest();
+            if (id == null) return BadRequest();
 
+            Category category = await _appDbContext.Categories.Where(m => m.Id == id)
+                                                               .Include(m => m.Products)
+                                                               .FirstOrDefaultAsync();
 
-            Category category = await _context.Categories.Where(m => m.Id == id)
-                                                          .Include(m => m.Products)
-                                                          .FirstOrDefaultAsync();
+            if (category == null) return NotFound();
 
-            if (category is null) return NotFound();
-
-            _context.Categories.Remove(category);
-
-            await _context.SaveChangesAsync();
-
+            _appDbContext.Categories.Remove(category);
+            await _appDbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-
         }
 
 
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id is null) return BadRequest();
+            if (id == null) return BadRequest();
 
+            Category category = await _appDbContext.Categories.Where(m => m.Id == id).FirstOrDefaultAsync();
 
-            Category category = await _context.Categories.Where(m => m.Id == id)
-                                                          .FirstOrDefaultAsync();
-
-            if (category is null) return NotFound();
-
-
-            return View(new CategoryEditVM { Id = category.Id, Name = category.Name});
-
+            if (category == null) return NotFound();
+            return View(new CategoryEditVM { Id = category.Id, Name = category.Name });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int? id, CategoryEditVM category)
         {
-            if (id is null) return BadRequest();
-
-
-            Category existCategory = await _context.Categories.Where(m => m.Id == id)
-                                                          .FirstOrDefaultAsync();
-
-            if (existCategory is null) return NotFound();
-
-
-            bool existingCategory = await _context.Categories.AnyAsync(m => m.Name == category.Name);
-
-            if (existingCategory)
+            if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("Name", "This category already exists");
                 return View();
+
             }
+            if (id == null) return BadRequest();
+
+            Category existCategory = await _appDbContext.Categories.Where(m => m.Id == id).FirstOrDefaultAsync();
+
+            if (category == null) return NotFound();
 
             existCategory.Name = category.Name;
-            await _context.SaveChangesAsync();
+            await _appDbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-
         }
-
     }
 }
-

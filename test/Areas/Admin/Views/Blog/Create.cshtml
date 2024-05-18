@@ -1,20 +1,32 @@
-﻿@model BlogCreateVM
-
-
+﻿@using test.ViewModels.Blogs
+@model BlogCreateVM
 @{
     ViewData["Title"] = "Create";
-
 }
 
-<div class="container mt-5">
-    <form class="forms-sample" method="post" asp-action="Create">
-        <div class="form-group">
-            <label>Blog</label>
-            <input asp-for="Title" type="text" class="form-control" maxlength="50" placeholder="Blog title">
-            <span class="text-danger" asp-validation-for="Title"></span>
-        </div>
+<h1>Create</h1>
+<div class="container">
+    <div class="card mt-4 w-100" style="display:flex;align-items:center;">
+        <h3 class="card-header">Create</h3>
+        <div>
+            <form asp-action="Create" method="post">
+                <label asp-for=Title class="form-label">Blog title</label>
+                <input asp-for=Title type="text" class="form-control" placeholder="add..." maxlength="120">
+                <label asp-for=Description class="form-label">Description</label>
+                <input asp-for=Description type="text" class="form-control" placeholder="add..." maxlength="120">
+                <label asp-for=Image class="form-label">Image</label>
+                <input asp-for=Image type="text" class="form-control" placeholder="add..." maxlength="120">
+                <span class="text-danger" asp-validation-for="Title"></span>
+                <span class="text-danger" asp-validation-for="Description"></span>
+                <span class="text-danger" asp-validation-for="Image"></span>
+                <button type="submit" class="btn btn-success mt-5">Submit</button>
+                <a asp-action="Index" asp-controller="Blog" class="btn btn-info mt-5">Cancel</a>
+            </form>
 
-        <button type="submit" class="btn btn-primary me-2">Submit</button>
-        <a asp-action="Index" class="btn btn-primary">Back</a>
-    </form>
+
+        </div>
+    </div>
+
 </div>
+
+

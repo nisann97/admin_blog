@@ -1,100 +1,128 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc;
-using test.ViewModels.Blogs;
 using test.Data;
 using test.Models;
-using test.ViewModels.Categories;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using test.ViewModels.Blogs;
 
 namespace test.Areas.Admin.Controllers
 {
     [Area("Admin")]
-
     public class BlogController : Controller
     {
-        private readonly AppDbContext _context;
 
+        private readonly AppDbContext _context;
         public BlogController(AppDbContext context)
         {
             _context = context;
         }
-      
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            List<Blog> blogs = await _context.Blogs.OrderByDescending(m => m.Id).ToListAsync();
 
+            return View(blogs);
 
-            [HttpGet]
-            public async Task<IActionResult> Index()
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(BlogCreateVM blog)
+        {
+            if (!ModelState.IsValid)
             {
-                List<Blog> blogs = await _context.Blogs.OrderByDescending(m => m.Id).ToListAsync();
-                return View(blogs);
-            }
-
-            [HttpGet]
-            public async Task<IActionResult> Create()
-            {
-
                 return View();
             }
-
-            [HttpPost]
-            [ValidateAntiForgeryToken]
-
-            public async Task<IActionResult> Create(BlogCreateVM blog)
+            bool existBlogs = await _context.Blogs.AnyAsync(m => m.Title == blog.Title && m.Description == blog.Description && m.Image == blog.Image && m.Date == blog.Date);
+            if (existBlogs)
             {
-
-                if (!ModelState.IsValid)
-                {
-                    return View();
-                }
-            await _context.Blogs.AddAsync(new Blog { Title = blog.Title, Description = blog.Description, Date = blog.Date }) ;
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ModelState.AddModelError("Title", "These inputs already exist");
             }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Detail(int? id)
-        //{
-        //    if (id is null) return BadRequest();
+            await _context.Blogs.AddAsync(new Blog { Title = blog.Title, Description = blog.Description, Image = blog.Image, Date = blog.Date });
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
 
+        [HttpGet]
+        public async Task<IActionResult> Info(int? id)
+        {
+            if (id == null) return BadRequest();
+            Blog blog = await _context.Blogs.FirstOrDefaultAsync(m => m.Id == id);
 
-        //Blog blog = await _context.Blogs.Where(m => m.Id == id).FirstOrDefaultAsync();
-        //    if (blog is null) return NotFound();
+            if (blog == null) return NotFound();
 
-        //    //CategoryDetailVM model = new()
-        //    //{
-        //    //    Name = Blog.Name,
-        //    //    ProductCount = category.Products.Count()
+            BlogInfoVM model = new()
+            {
+                Title = blog.Title,
+                Description = blog.Description,
+                Image = blog.Image,
+                Date = blog.Date
 
-        //    //};
+            };
+            return View(model);
 
-        //    return View(model);
-        //}
-
+        }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id is null) return BadRequest();
+            if (id == null) return BadRequest();
+            Blog blog = await _context.Blogs.FirstOrDefaultAsync(m => m.Id == id);
 
-
-            Blog blog = await _context.Blogs.Where(m => m.Id == id)
-                                                       .FirstOrDefaultAsync();
-
-            if (blog is null) return NotFound();
+            if (blog == null) return NotFound();
 
             _context.Blogs.Remove(blog);
-
             await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
 
-            return RedirectToAction(nameof(Index));
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            if (id == null) return BadRequest();
+            Blog blog = await _context.Blogs.FirstOrDefaultAsync(m => m.Id == id);
+
+            if (blog == null) return NotFound();
+
+            return View(new BlogEditVM { Title = blog.Title, Description = blog.Description, Image = blog.Image, Date = blog.Date });
 
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(BlogEditVM blog, int? id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            if (id == null) return BadRequest();
+            Blog existBlog = await _context.Blogs.FirstOrDefaultAsync(m => m.Id == id);
+
+            if (blog == null) return NotFound();
+            existBlog.Title = blog.Title;
+            existBlog.Description = blog.Description;
+            existBlog.Image = blog.Image;
+            existBlog.Date = blog.Date;
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+
+        }
+
     }
 }
-

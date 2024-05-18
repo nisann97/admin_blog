@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\" />
-    <Content Remove="wwwroot\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\" />
@@ -19,17 +18,8 @@
     <Folder Include="Views\Blog\" />
     <Folder Include="Views\Product\" />
     <Folder Include="Areas\" />
-    <Folder Include="wwwroot\Admin\" />
     <Folder Include="Services\" />
-    <Folder Include="ViewModels\Categories\" />
     <Folder Include="Areas\" />
-    <Folder Include="Areas\Admin\" />
-    <Folder Include="Areas\Admin\Controllers\" />
-    <Folder Include="Areas\Admin\Views\" />
-    <Folder Include="Areas\Admin\Views\Category\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Areas\Admin\Views\Blog\" />
-    <Folder Include="ViewModels\Blogs\" />
     <Folder Include="Services\Interfaces\" />
   </ItemGroup>
   <ItemGroup>
@@ -41,14 +31,6 @@
     <None Remove="Views\Product\" />
     <None Remove="Areas\" />
     <None Remove="Services\" />
-    <None Remove="ViewModels\Categories\" />
-    <None Remove="Areas\Admin\" />
-    <None Remove="Areas\Admin\Controllers\" />
-    <None Remove="Areas\Admin\Views\" />
-    <None Remove="Areas\Admin\Views\Category\" />
-    <None Remove="Areas\Admin\Views\Shared\" />
-    <None Remove="Areas\Admin\Views\Blog\" />
-    <None Remove="ViewModels\Blogs\" />
     <None Remove="Services\Interfaces\" />
   </ItemGroup>
   <ItemGroup>

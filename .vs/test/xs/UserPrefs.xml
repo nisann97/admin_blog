@@ -1,0 +1,62 @@
+﻿<Properties StartupConfiguration="{E8D1E3DB-F26C-400B-B839-7C19DD719FF8}|Default">
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.test PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="test/Areas/Admin/Views/Shared/_Layout.cshtml">
+    <Files>
+      <File FileName="test/Program.cs" />
+      <File FileName="test/Areas/Admin/Controllers/BlogController.cs" />
+      <File FileName="test/Areas/Admin/Controllers/CategoryController.cs" />
+      <File FileName="test/Areas/Admin/Controllers/DashboardController.cs" />
+      <File FileName="test/Areas/Admin/Views/Blog/Create.cshtml" />
+      <File FileName="test/Areas/Admin/Views/Blog/Info.cshtml" />
+      <File FileName="test/Areas/Admin/Views/Blog/Index.cshtml" />
+      <File FileName="test/Areas/Admin/Views/Blog/Edit.cshtml" />
+      <File FileName="test/Areas/Admin/_ViewImports.cshtml" />
+      <File FileName="test/Areas/Admin/Views/Shared/_Layout.cshtml" Line="286" Column="1" />
+      <File FileName="test/Areas/Admin/_ViewStart.cshtml" />
+      <File FileName="test/Areas/Admin/Views/Dashboard/Index.cshtml" />
+      <File FileName="test/Areas/Admin/Views/Category/Create.cshtml" />
+      <File FileName="test/Areas/Admin/Views/Category/Edit.cshtml" />
+      <File FileName="test/Areas/Admin/Views/Category/Index.cshtml" />
+      <File FileName="test/Areas/Admin/Views/Category/Detail.cshtml" />
+      <File FileName="test/ViewModels/Blogs/BlogCreateVM.cs" />
+      <File FileName="test/ViewModels/Blogs/BlogEditVM.cs" />
+      <File FileName="test/ViewModels/Blogs/BlogInfoVM.cs" />
+      <File FileName="test/ViewModels/Categories/CategoryCreateVM.cs" />
+      <File FileName="test/ViewModels/Categories/CategoryDetailVM.cs" />
+      <File FileName="test/ViewModels/Categories/CategoryEditVM.cs" />
+      <File FileName="test/ViewModels/Categories/CategoryVM.cs" />
+      <File FileName="test/Views/_ViewStart.cshtml" />
+      <File FileName="test/Views/Home/Index.cshtml" />
+      <File FileName="test/Views/Shared/_Layout.cshtml" />
+      <File FileName="test/Views/Shared/_BlogsPartial.cshtml" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="test">
+            <Node name="test" expanded="True">
+              <Node name="Areas" expanded="True">
+                <Node name="Admin" expanded="True">
+                  <Node name="Views" expanded="True">
+                    <Node name="Shared" expanded="True">
+                      <Node name="_Layout.cshtml" selected="True" />
+                    </Node>
+                  </Node>
+                </Node>
+              </Node>
+              <Node name="wwwroot" expanded="True">
+                <Node name="Admin" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+</Properties>
